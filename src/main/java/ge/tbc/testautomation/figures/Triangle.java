@@ -1,6 +1,9 @@
 package ge.tbc.testautomation.figures;
 
-public class Triangle extends Figures{
+import ge.tbc.testautomation.abstractClassesInterfaces.interfaces.IResizable;
+import ge.tbc.testautomation.abstractClassesInterfaces.interfaces.IValidFigure;
+
+public class Triangle extends Figures implements IResizable, IValidFigure {
     private double a;
     private double b;
     private double c;
@@ -11,15 +14,43 @@ public class Triangle extends Figures{
         this.b = b;
         this.c = c;
         this.h = h;
+
+        if (!validateFigure()) {
+            throw new IllegalArgumentException("Invalid triangle sides");
+        }
     }
 
     @Override
-    public double getArea(){
-        return (c+h)/2;
+    public boolean validateFigure() {
+        return a + b > c && a + c > b && b + c > a;
     }
 
     @Override
-    public double getPerimeter(){
-        return a+b+c;
+    public double getArea() {
+        return c*h/2;
+    }
+
+    @Override
+    public double getLength() {
+        return a + b + c;
+    }
+
+    @Override
+    public void printPackageName() {
+        System.out.println(this.getClass().getPackageName());
+    }
+
+    @Override
+    public void doubleSize() {
+        a *= 2;
+        b *= 2;
+        c *= 2;
+    }
+
+    @Override
+    public void customSize(double byValue) {
+        a *= byValue;
+        b *= byValue;
+        c *= byValue;
     }
 }

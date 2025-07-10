@@ -1,3 +1,4 @@
+/*
 package ge.tbc.testautomation.util;
 import ge.tbc.testautomation.figures.Rectangle;
 
@@ -14,3 +15,4 @@ public class HelperFunctions {
         }
     }
 }
+*/
