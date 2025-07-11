@@ -5,11 +5,11 @@ import ge.tbc.testautomation.abstractClassesInterfaces.interfaces.IValidFigure;
 import ge.tbc.testautomation.exceptionsStringOperationsRegex.LimitException;
 import ge.tbc.testautomation.exceptionsStringOperationsRegex.RadiusException;
 
-public class Circle extends Figures implements IResizable, IValidFigure {
+public class Circle extends Figures implements IResizable, IValidFigure, Comparable<Circle> {
 
-    private double radius;
+    private int radius;
 
-    public Circle(double radius) {
+    public Circle(int radius) {
         this.radius = radius;
         if (!validateFigure()) {
             throw new IllegalArgumentException("Invalid radius");
@@ -20,7 +20,7 @@ public class Circle extends Figures implements IResizable, IValidFigure {
         return radius;
     }
 
-    public void setRadius(double radius) {
+    public void setRadius(int radius) {
         this.radius = radius;
     }
 
@@ -52,5 +52,33 @@ public class Circle extends Figures implements IResizable, IValidFigure {
     @Override
     public boolean validateFigure() {
         return radius > 0;
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "Circle{" +
+                "radius=" + radius +
+                '}';
+    }
+
+    @Override
+    public int compareTo(Circle other) {
+        return Integer.compare(this.radius, other.radius);
+    }
+
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof Circle)) return false;
+        Circle circle = (Circle) object;
+        return radius == circle.radius;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(radius);
     }
 }

@@ -1,22 +1,31 @@
-/*package ge.tbc.testautomation.figures;
+package ge.tbc.testautomation.figures;
 
-public class Rectangle extends Figures {
-    private double a;
-    private double b;
+import java.util.Comparator;
 
-    public Rectangle(double a, double b){
-        this.a = a;
-        this.b = b;
+public class Rectangle {
+    private double area;
+
+    public Rectangle(double area) {
+        this.area = area;
+    }
+
+    public double getArea() {
+        return area;
+    }
+
+    public void setArea(double area) {
+        this.area = area;
     }
 
     @Override
-    public double getArea(){
-        return a*b;
+    public String toString() {
+        return "Rectangle{" +
+                "area=" + area +
+                '}';
     }
 
-
-    @Override
-    public double getPerimeter(){
-        return 2*(a+b);
+    public static Comparator<Rectangle> getReversedComparator() {
+        return Comparator.comparing(Rectangle::getArea).reversed();
     }
-}*/
+
+}
