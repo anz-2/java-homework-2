@@ -1,4 +1,4 @@
-package ge.tbc.testautomation.figures;
+/*package ge.tbc.testautomation.figures;
 
 public class Rectangle extends Figures {
     private double a;
@@ -19,4 +19,4 @@ public class Rectangle extends Figures {
     public double getPerimeter(){
         return 2*(a+b);
     }
-}
+}*/
