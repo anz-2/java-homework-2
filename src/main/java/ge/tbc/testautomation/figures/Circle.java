@@ -5,7 +5,7 @@ import ge.tbc.testautomation.abstractClassesInterfaces.interfaces.IValidFigure;
 import ge.tbc.testautomation.exceptionsStringOperationsRegex.LimitException;
 import ge.tbc.testautomation.exceptionsStringOperationsRegex.RadiusException;
 
-public class Circle extends Figures implements IResizable, IValidFigure {
+public class Circle extends Figures implements IResizable, IValidFigure, Comparable<Circle> {
 
     private double radius;
 
@@ -52,5 +52,25 @@ public class Circle extends Figures implements IResizable, IValidFigure {
     @Override
     public boolean validateFigure() {
         return radius > 0;
+    }
+
+
+    //დავალება - Java Containers & Comparing
+
+    @Override
+    public String toString() {
+        return "Circle{" +
+                "radius=" + radius +
+                '}';
+    }
+    @Override
+    public int compareTo(Circle other) {
+        if (this.radius > other.radius) {
+            return 1;
+        } else if (this.radius < other.radius) {
+            return -1;
+        } else {
+            return 0;
+        }
     }
 }

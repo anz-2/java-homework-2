@@ -1,22 +1,29 @@
-/*package ge.tbc.testautomation.figures;
+package ge.tbc.testautomation.figures;
 
-public class Rectangle extends Figures {
-    private double a;
-    private double b;
+public class Rectangle extends Figures{
+    private double width;
+    private double height;
 
-    public Rectangle(double a, double b){
-        this.a = a;
-        this.b = b;
+    public Rectangle(double width, double height) {
+        this.width = width;
+        this.height = height;
+    }
+    public double getArea() {
+        return width * height;
     }
 
     @Override
-    public double getArea(){
-        return a*b;
+    public double getLength() {
+        return (width + height)*2;
     }
-
 
     @Override
-    public double getPerimeter(){
-        return 2*(a+b);
+    public void printPackageName() {
+        System.out.println(this.getClass().getPackageName());
     }
-}*/
+
+    @Override
+    public String toString() {
+        return "Rectangle Area = " + getArea();
+    }
+}
