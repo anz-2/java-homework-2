@@ -1,50 +1,59 @@
 package ge.tbc.testautomation.runners;
 
+import ge.tbc.testautomation.annotationsAndStreams.Analyzable;
+import ge.tbc.testautomation.annotationsAndStreams.VariableNameAnnotation;
 import ge.tbc.testautomation.exceptionsStringOperationsRegex.LimitException;
 import ge.tbc.testautomation.exceptionsStringOperationsRegex.RadiusException;
 import ge.tbc.testautomation.figures.Circle;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.StringJoiner;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.stream.Collectors;
+
 import ge.tbc.testautomation.figures.Triangle;
+
+
 
 public class Main {
     public static void main(String[] args) {
-        try {
-            Circle circle = new Circle(7);
-            System.out.println("circle area: " + circle.getArea());
-            System.out.println("circle length: " + circle.getLength());
-            circle.printPackageName();
+        @SuppressWarnings("unused")
+        int height = 10;
+        @SuppressWarnings("unused")
+        double count = 5.2;
+        @SuppressWarnings("unused")
+        String model = "audi";
 
-            circle.doubleSize();
-            System.out.println("circle double area: " + circle.getArea());
 
-            circle.customSize(3);
-            System.out.println("circle custom area: " + circle.getArea());
 
-            System.out.println(circle.validateFigure());
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+        Field[] fields = Analyzable.class.getDeclaredFields();
 
-        try {
-            Triangle triangle = new Triangle(3, 6, 5, 6);
-            System.out.println("triangle area: " + triangle.getArea());
-            System.out.println("triangle length: " + triangle.getLength());
-            triangle.printPackageName();
+        List<String> match = Arrays.stream(fields)
+                .filter(field -> field.isAnnotationPresent(VariableNameAnnotation.class))
+                .filter(field -> {
+                    VariableNameAnnotation annotation = field.getAnnotation(VariableNameAnnotation.class);
+                    return field.getName().equalsIgnoreCase(annotation.name());
+                })
+                .map(Field::getName)
+                .collect(Collectors.toList());
 
-            triangle.doubleSize();
-            System.out.println("triangle double area: " + triangle.getArea());
+        System.out.println("matching: " + match);
 
-            triangle.customSize(2);
-            System.out.println("triangle custom area: " + triangle.getArea());
+        List<String> nonMatch = Arrays.stream(fields)
+                .filter(field -> field.isAnnotationPresent(VariableNameAnnotation.class))
+                .filter(field -> {
+                    VariableNameAnnotation annotation = field.getAnnotation(VariableNameAnnotation.class);
+                    return !field.getName().equalsIgnoreCase(annotation.name());
+                })
+                .map(Field::getName)
+                .collect(Collectors.toList());
 
-            System.out.println(triangle.validateFigure());
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+        System.out.println("non-matching: " + nonMatch);
 
-        System.out.println("Hotfix merged with abstractClassesInterfaces");
+
     }
 }
