@@ -1,4 +1,4 @@
-/*package ge.tbc.testautomation.figures;
+package ge.tbc.testautomation.figures;
 
 public class Rectangle extends Figures {
     private double a;
@@ -14,9 +14,21 @@ public class Rectangle extends Figures {
         return a*b;
     }
 
+    @Override
+    public double getLength() {
+        return 0;
+    }
 
     @Override
-    public double getPerimeter(){
-        return 2*(a+b);
+    public void printPackageName() {
+        System.out.println(this.getClass().getPackageName());
     }
-}*/
+
+    @Override
+    public String toString() {
+        return "Rectangle{" +
+                "a=" + a +
+                ", b=" + b +
+                '}';
+    }
+}

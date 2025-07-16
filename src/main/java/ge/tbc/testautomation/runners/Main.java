@@ -15,45 +15,30 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.util.stream.Collectors;
 
+import ge.tbc.testautomation.figures.Rectangle;
 import ge.tbc.testautomation.figures.Triangle;
-
+import ge.tbc.testautomation.generics.AnyPair;
+import ge.tbc.testautomation.generics.FigurePair;
 
 
 public class Main {
+    private static <K, D> AnyPair<Field[], Field[]> getDeclaredFields(K objOne, D objTwo) {
+        Field[] fieldsOne = objOne.getClass().getDeclaredFields();
+        Field[] fieldsTwo = objTwo.getClass().getDeclaredFields();
+        return new AnyPair<>(fieldsOne, fieldsTwo);
+    }
+
     public static void main(String[] args) {
-        @SuppressWarnings("unused")
-        int height = 10;
-        @SuppressWarnings("unused")
-        double count = 5.2;
-        @SuppressWarnings("unused")
-        String model = "audi";
+        AnyPair<Field[], Field[]> fields = getDeclaredFields(5, "hello");
+        System.out.println("Integer fields:");
+        Arrays.asList(fields.getElementOne()).forEach(field -> System.out.println(field.getName()));
+        System.out.println("String fields:");
+        Arrays.asList(fields.getElementTwo()).forEach(field -> System.out.println(field.getName()));
 
+        Circle circle = new Circle(7);
+        Rectangle rectangle = new Rectangle(5, 10);
+        FigurePair<Circle, Rectangle> figurePair = new FigurePair<>(circle, rectangle);
 
-
-        Field[] fields = Analyzable.class.getDeclaredFields();
-
-        List<String> match = Arrays.stream(fields)
-                .filter(field -> field.isAnnotationPresent(VariableNameAnnotation.class))
-                .filter(field -> {
-                    VariableNameAnnotation annotation = field.getAnnotation(VariableNameAnnotation.class);
-                    return field.getName().equalsIgnoreCase(annotation.name());
-                })
-                .map(Field::getName)
-                .collect(Collectors.toList());
-
-        System.out.println("matching: " + match);
-
-        List<String> nonMatch = Arrays.stream(fields)
-                .filter(field -> field.isAnnotationPresent(VariableNameAnnotation.class))
-                .filter(field -> {
-                    VariableNameAnnotation annotation = field.getAnnotation(VariableNameAnnotation.class);
-                    return !field.getName().equalsIgnoreCase(annotation.name());
-                })
-                .map(Field::getName)
-                .collect(Collectors.toList());
-
-        System.out.println("non-matching: " + nonMatch);
-
-
+        System.out.println(figurePair);
     }
 }
