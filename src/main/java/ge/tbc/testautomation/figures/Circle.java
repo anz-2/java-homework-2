@@ -53,4 +53,11 @@ public class Circle extends Figures implements IResizable, IValidFigure {
     public boolean validateFigure() {
         return radius > 0;
     }
+
+    @Override
+    public String toString() {
+        return "Circle{" +
+                "radius=" + radius +
+                '}';
+    }
 }
